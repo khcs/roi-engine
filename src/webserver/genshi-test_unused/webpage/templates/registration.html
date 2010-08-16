@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/">
+  <head>
+    <title>ROI-Engine: Registration Form</title>
+  </head>
+  <body class="register">
+    <div id="header">
+      <h1>Registration Form</h1>
+    </div>
+
+    <form action="" method="post">
+      <table summary=""><tbody><tr>
+        <th><label for="username">Username:</label></th>
+        <td>
+          <input type="text" id="username" name="username" />
+          <span py:if="'username' in errors" class="error">${errors.username}</span>
+        </td>
+      </tr><tr>
+        <th><label for="password">Password:</label></th>
+        <td>
+          <input type="password" id="password" name="password" />
+          <span py:if="'password' in errors" class="error">${errors.password}</span>
+        </td>
+      </tr><tr>
+      </tr><tr>
+        <th><label for="password_confirm">Password Confirm:</label></th>
+        <td>
+          <input type="password" id="password_confirm" name="password_confirm" />
+          <span py:if="'password_confirm' in errors"
+      class="error">${errors.password}</span>
+	  <span py:if="'chained_validators' in errors"
+      class="error">${errors.password}</span>
+        </td>
+      </tr><tr>
+        <th><label for="email">E-Mail Address:</label></th>
+        <td>
+          <input type="text" name="email" />
+          <span py:if="'email' in errors" class="error">${errors.email}</span>
+        </td>
+      </tr><tr>
+      </tr><tr>
+        <th><label for="institution">Institution:</label></th>
+        <td>
+          <input type="text" name="Institution" />
+          <span py:if="'institution' in errors" class="error">${errors.institution}</span>
+        </td>
+      </tr><tr>
+      </tr><tr>
+        <th><label for="department">Department:</label></th>
+        <td>
+          <input type="text" name="department" />
+          <span py:if="'department' in errors" class="error">${errors.department}</span>
+        </td>
+      </tr><tr>
+        <td></td>
+        <td>
+          <input type="submit" value="Register" />
+          <input type="submit" name="cancel" value="Cancel" />
+        </td>
+      </tr></tbody></table>
+    </form>
+
+    <div id="footer">
+      <hr />
+      <p class="legalese">© 2010 Hoo Chang Shin</p>
+    </div>
+  </body>
+</html>
+    
