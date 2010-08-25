@@ -62,7 +62,8 @@ if __name__ == '__main__':
     
 
     # create the image where we want to display results
-    image = cv.LoadImage("contour_test_2.bmp", cv.CV_LOAD_IMAGE_GRAYSCALE)
+    #image = cv.LoadImage("contour_test_2.bmp", cv.CV_LOAD_IMAGE_GRAYSCALE)
+    image = cv.LoadImage("mri_liver_roi.bmp", cv.CV_LOAD_IMAGE_GRAYSCALE)
 
 
     # create window and display the original picture in it
@@ -78,11 +79,15 @@ if __name__ == '__main__':
                                cv.CV_RETR_TREE,
                                cv.CV_CHAIN_APPROX_SIMPLE,
                                (0,0))
+    
+    print contours
 
     # comment this out if you do not want approximation
     contours_a = cv.ApproxPoly (contours, 
                                 storage,
                                 cv.CV_POLY_APPROX_DP, 3, 1)
+    
+    
     
     # create the window for the contours
     #cv.NamedWindow ("contours", 1)

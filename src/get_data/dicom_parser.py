@@ -28,6 +28,8 @@ from os import path
 import dicom
 import numpy
 
+from operator import itemgetter
+
 
 def read_dicom_files(dicom_path):
   """
@@ -48,7 +50,8 @@ def read_dicom_files(dicom_path):
   -----'SeriesInstanceUID': 'x.x.x.x',
   -----'dicom_files':
   ------{''DICOM file name'':
-  --------{'SOPInstanceUID': 'x.x.x.x'}
+  --------{'SOPInstanceUID': 'x.x.x.x',
+  -------- 'SliceLocation': xxx.xxxxxx'}
   ------}
   ----}
   --}
@@ -65,11 +68,13 @@ def read_dicom_files(dicom_path):
     try:
       study_structure_sub = study_structure[i_file.SeriesDescription]
       dicom_files_list = study_structure_sub['dicom_files']
-      dicom_files_list[file_n] = {'SOPInstanceUID': i_file.SOPInstanceUID}
+      dicom_files_list[file_n] = {'SOPInstanceUID': i_file.SOPInstanceUID,\
+                                  'SliceLocation': i_file.SliceLocation}
 
     except KeyError:
       dicom_files_list = {}
-      dicom_files_list[file_n] = {'SOPInstanceUID': i_file.SOPInstanceUID}
+      dicom_files_list[file_n] = {'SOPInstanceUID': i_file.SOPInstanceUID,\
+                                  'SliceLocation': i_file.SliceLocation}
 
     study_structure[i_file.SeriesDescription] = \
             {'SeriesInstanceUID': i_file.SeriesInstanceUID, \
@@ -112,8 +117,45 @@ def study_series_selector(study_structure_in):
   return series_name_to_study
 
 
+def b_value_selector(dicom_path, dicom_files_structured_list_sorted_in):
+  
+  slice_location_pre = None
+  b_values = []
+  dicom_files_structured_list = {}
+  dicom_files_list_sorted_bvalue_selected = []
+  
+  for i in range(len(dicom_files_structured_list_sorted_in)):
+    file_structure = dicom_files_structured_list_sorted_in[i]
+    file_name = file_structure[0]
+    slice_location = file_structure[1]
+    if slice_location_pre != None and slice_location_pre != slice_location:
+      break
+    dicom_read = dicom.read_file(path.join(dicom_path, file_name))
+    b_values.append(dicom_read[0x0019, 0x100c].value)  
+    slice_location_pre = slice_location
+        
+  for i in range(len(b_values)):
+    print i, 'B-Value: ', b_values[i]
+  b_value_n_to_study = input('Enter the number of the B-Value to study: ')
+  b_value_to_study = b_values[b_value_n_to_study]
+  
+  for i in range(len(dicom_files_structured_list_sorted_in)):
+    file_structure = dicom_files_structured_list_sorted_in[i]
+    file_name = file_structure[0]
+    dicom_read = dicom.read_file(path.join(dicom_path, file_name))
+    if dicom_read[0x0019, 0x100c].value == b_value_to_study:
+      slice_location = dicom_read.SliceLocation
+      dicom_files_structured_list[slice_location] = file_name
 
-def get_image(dicom_path, study_structure_in, series_name_to_study_in):
+  for location_key in sorted(dicom_files_structured_list.iterkeys()):
+    dicom_files_list_sorted_bvalue_selected.append(\
+                                    dicom_files_structured_list[location_key])
+    
+  return dicom_files_list_sorted_bvalue_selected, b_value_to_study
+  
+
+def get_image(dicom_path, study_structure_in, series_name_to_study_in,\
+              sort_by_slice_location=None):
   """
   get_image
 
@@ -136,10 +178,33 @@ def get_image(dicom_path, study_structure_in, series_name_to_study_in):
   dicom_files_structure = series_structure['dicom_files']
 
   dicom_files_list = []
+  dicom_files_structured_list = {}
+  dicom_files_structured_list_sorted = {}
   
   for files_key in sorted(dicom_files_structure.iterkeys()):
-    dicom_files_list.append(files_key)
-
+    if sort_by_slice_location == True:
+      current_file_structure = dicom_files_structure[files_key]
+      slice_location = current_file_structure['SliceLocation']
+      dicom_files_structured_list[files_key] = slice_location
+    
+      dicom_files_structured_list_sorted = \
+                          sorted(dicom_files_structured_list.items())
+      
+    else:
+      dicom_files_list.append(files_key)
+  
+  
+  if sort_by_slice_location == True:
+    file_1 = dicom_files_structured_list_sorted[0]
+    file_2 = dicom_files_structured_list_sorted[1]
+    
+    if file_1[1] == file_2[1]:
+      dicom_files_list, b_value = \
+                b_value_selector(dicom_path, dicom_files_structured_list_sorted)
+  else:
+    pass
+  
+  
   for i, dicom_file in enumerate(dicom_files_list):
     dicom_read = dicom.read_file(path.join(dicom_path, dicom_file))
 
@@ -154,8 +219,11 @@ def get_image(dicom_path, study_structure_in, series_name_to_study_in):
   pixel_spacing = dicom_read.PixelSpacing
   slice_thickness = dicom_read.SliceThickness
 
-
-  return image_array_3d, pixel_spacing, slice_thickness
+  if sort_by_slice_location == True:
+    return image_array_3d, pixel_spacing, slice_thickness, dicom_files_list,\
+            b_value
+  else:
+    return image_array_3d, pixel_spacing, slice_thickness
 
 
 
