@@ -10,7 +10,6 @@
 
 
 import cherrypy
-from xml.parser import expat
 from genshi.template import TemplateLoader
 from genshi.filters import HTMLFormFiller
 
