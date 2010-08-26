@@ -3,6 +3,8 @@ function hoo_3d_roi
 % Load the Java Path
 javaaddpath /Users/hshin/workspace/XML-ROI-Matlab-Java/bin/ParseDICOM/
 javaaddpath /Users/hshin/workspace/XML-ROI-Matlab-Java/bin/ParseDICOM/ParseDICOM.jar
+% Load the Java Path for Linux-VM
+javaaddpath /home/hshin/workspace/ROI-Engine/src/xml/java/bin/ParseDICOM.jar
 
 % Get the directory containing the DICOM files to work with
 working_directory = input('Enter the directory with the DICOM files: ', 's');
@@ -13,6 +15,9 @@ working_directory = input('Enter the directory with the DICOM files: ', 's');
 
 % Mac
 %working_directory = '/Users/hshin/Works/PhD/Dataset/ICR/cvehlow/Liver_Pat3/DICOM/';
+
+% Linux-VM
+%working_directory = '/home/hshin/host/hshin/Works/PhD/Dataset/ICR/cvehlow/Liver_Pat3/DICOM/';
 
 
 % Load my Java class for manipulating the XML files

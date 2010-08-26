@@ -10,6 +10,7 @@
 
 
 import cherrypy
+from xml.parser import expat
 from genshi.template import TemplateLoader
 from genshi.filters import HTMLFormFiller
 
@@ -19,7 +20,7 @@ from user_management.login import LoginForm
   
 import socket
 
-from mainpage import *
+#from mainpage import *
 
 
 class Root(object):
@@ -30,14 +31,15 @@ class Root(object):
     
   @cherrypy.expose
   @template.output('index.html')
-  def index(self):      
+  def index(self):
     return template.render()
   
   
 local_ip_address = socket.gethostbyname(socket.gethostname())
 cherrypy.config.update({#'server.socket_host': local_ip_address,
-                        'server.socket_host': '127.0.0.1',
+                        #'server.socket_host': '127.0.0.1',
                         #'server.socket_host': '172.16.15.156', # ICR
+                        'server.socket_host': '192.168.56.102', # AppServer-VM
                         'server.socket_port': 9090,
                        })
 
