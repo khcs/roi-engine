@@ -89,7 +89,6 @@ StudyInstanceUID = dicom_info.StudyInstanceUID;
 % Close waitbar
 close(h);
 
-
 for i=1:length(dicom_series_indexer)-1
     k=1;
     for j=dicom_series_indexer(i):dicom_series_indexer(i+1)-1
@@ -111,4 +110,5 @@ for j=dicom_series_indexer(i):length(dicom_files_char)
     dicom_files{i,k,2} = sopInstanceUID;
     k=k+1;
 end
+
 
