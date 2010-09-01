@@ -1,0 +1,26 @@
+Execute Matlab and go to the directory containing this file.
+
+1) When you want to parse any DICOM files and want to do 
+ - Seeded Region Growing Segmentation,
+ - Write the result of segmentation into XML file as ROI:
+ 
+ then execute:
+ 'run hoo_3d_roi'
+ 
+ 
+2) When you want to process the XML file of MRIW
+ - want to show the images ROI for the first time from MRIW's XML file:
+ 
+   then execute:
+   'run hoo_read_mriw_xml'
+   
+   when you leave the entries of XML file and DICOM file path as blank,
+   it will demonstrate with the existing files in the folder.
+   
+   
+ - want to show the images with ROI from the processed XML file:
+ 
+   then execute:
+   'run hoo_read_xml_show_roi'
+   
+ 

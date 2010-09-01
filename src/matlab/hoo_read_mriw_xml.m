@@ -3,9 +3,22 @@ function hoo_read_mriw_xml
 % Load the Java Path
 javaaddpath /home/hshin/workspace/ROI-Engine/src/matlab/javabin/ParseDICOM.jar
 
-inputfile = 'cosine_results.xml';
-%data_directory = '/home/hshin/host/hshin/Works/PhD/Dataset/ICR/JamesD/srtf_breast/DICOM/';
-data_directory = './testdata/srtf_breast/DICOM/';
+
+% Get the full path of the XML file of the MRIW
+inputfile = input('Enter full path of the XML file of MRIW: ', 's');
+
+% Get the directory containing the DICOM files to work with
+data_directory = input('Enter the directory with the DICOM files: ', 's');
+
+
+if isempty(inputfile)
+    inputfile = 'cosine_results.xml';
+end
+
+if isempty(data_directory)
+    %data_directory = '/home/hshin/host/hshin/Works/PhD/Dataset/ICR/JamesD/srtf_breast/DICOM/';
+    data_directory = './testdata/srtf_breast/DICOM/';
+end
 
 
 % Load my Java class for manipulating the XML files
