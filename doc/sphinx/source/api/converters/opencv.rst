@@ -3,10 +3,10 @@ ROI-Engine Numpy - OpenCV Data Converter
 ************************************************
 
 
-:mod:`converters`
+##:mod:`converters`
 =============================
 
-.. automodule:: converters
-.. automodule:: converters.opencv
-   :members:
-   :undoc-members:
+##.. automodule:: converters
+##.. automodule:: converters.opencv
+##   :members:
+##   :undoc-members:

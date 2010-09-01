@@ -1,3 +1,3 @@
 make html
 rm -rf /Users/hshin/MyApplications/apache-tomcat/webapps/roi-engine-doc/*
-cp -r ./build/html/* /Users/hshin/MyApplications/apache-tomcat/webapps/roi-engine-doc/
+cp -r ./build/html/* /home/hshin/MyApplications/apache-tomcat-6.0.29/webapps/roi-engine-doc/

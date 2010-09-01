@@ -25,7 +25,7 @@ LaTeX documentation can be obtained on request.
    users/examples.rst
    users/license.rst
 
-   api/index.rst
+   ##api/index.rst
 
  
 
