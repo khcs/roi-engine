@@ -1,8 +1,6 @@
 function [directory_location, filenames, roi_coords_x, roi_coords_y] = ...
     hoo_read_xml_return_filenames_roi_coords(xml_file)
 
-% Load the Java Path
-javaaddpath /home/hshin/workspace/ROI-Engine/src/java/xml-handler-java/bin/ParseDICOM.jar
 
 % Load my Java class for manipulating the XML files
 parseResultManipulator = ParseDICOM.ManipulateDICOMparseResult;

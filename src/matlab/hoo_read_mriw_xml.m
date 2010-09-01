@@ -1,10 +1,11 @@
 function hoo_read_mriw_xml
 
 % Load the Java Path
-javaaddpath /home/hshin/workspace/ROI-Engine/src/java/xml-handler-java/bin/ParseDICOM.jar
+javaaddpath /home/hshin/workspace/ROI-Engine/src/matlab/javabin/ParseDICOM.jar
 
 inputfile = 'cosine_results.xml';
-data_directory = '/home/hshin/host/hshin/Works/PhD/Dataset/ICR/JamesD/srtf_breast/DICOM/';
+%data_directory = '/home/hshin/host/hshin/Works/PhD/Dataset/ICR/JamesD/srtf_breast/DICOM/';
+data_directory = './testdata/srtf_breast/DICOM/';
 
 
 % Load my Java class for manipulating the XML files
