@@ -7,13 +7,13 @@ javaaddpath /home/hshin/workspace/ROI-Engine/src/java/xml-handler-java/bin/Parse
 % Load my Java class for manipulating the XML files
 parseResultManipulator = ParseDICOM.ManipulateDICOMparseResult;
 
-directory_location_java = parseResultManipulator.readFromXML_directory_location('./rpacs_processing/rpacs_processing_home_hshin_host_hshin_Works_PhD_Dataset_ICR_JamesD_srtf_breast_DICOM_.xml', 1);
+directory_location_java = parseResultManipulator.readFromXML_directory_location(xml_file, 1);
 directory_location = char(directory_location_java);
 
-filenames_java = parseResultManipulator.readFromXML('./rpacs_processing/rpacs_processing_home_hshin_host_hshin_Works_PhD_Dataset_ICR_JamesD_srtf_breast_DICOM_.xml', 1);
+filenames_java = parseResultManipulator.readFromXML(xml_file, 1);
 filenames = char(filenames_java);
 
-roi_coords_java = parseResultManipulator.readFromXML_roi_coordinates('./rpacs_processing/rpacs_processing_home_hshin_host_hshin_Works_PhD_Dataset_ICR_JamesD_srtf_breast_DICOM_.xml', 1);
+roi_coords_java = parseResultManipulator.readFromXML_roi_coordinates(xml_file, 1);
 for i=1:length(roi_coords_java)
     roi_coords(i,:) = char(roi_coords_java(i));
     roi_coords_strreadable = strrep(char(roi_coords_java(i)), '(', ' ');
