@@ -71,5 +71,4 @@ for i=1:num_files
 end
 
 
-xml_filename = char(['./rpacs_processing/' 'rpacs_processing', strrep(data_directory, '/', '_'), '.xml']);
 
