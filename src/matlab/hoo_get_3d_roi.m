@@ -1,4 +1,4 @@
-function [im3d_roi, boundaries_cell] = hoo_get_3d_roi(im_rg_seg, im_dicom_3d)
+function [im3d_roi, boundaries_cell, im_dicom_3d_color] = hoo_get_3d_roi(im_rg_seg, im_dicom_3d)
 
 % Get the ROI of the segmented 3D image
 im3d_roi = [];
@@ -47,6 +47,7 @@ for i=1:num_files
     im_dicom_3d_color(:,:,:,i) = im_dicom_3d_color(:,:,:,i) + im3d_roi_color(:,:,:,i);
     
     subplot(m, n, i);    
+        
     imshow(im_dicom_3d_color(:,:,:,i), 'DisplayRange', []);
     title(i);
 end
@@ -68,4 +69,7 @@ for i=1:num_files
     
     title(i);
 end
-truesize;
+
+
+xml_filename = char(['./rpacs_processing/' 'rpacs_processing', strrep(data_directory, '/', '_'), '.xml']);
+

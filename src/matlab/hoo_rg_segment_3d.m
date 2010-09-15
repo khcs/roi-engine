@@ -19,6 +19,7 @@ J = zeros(size(I)); % Output
 Isizes = size(I); % Dimensions of input image
 
 reg_mean = I(x,y,z); % The mean of the segmented region
+reg_mean = double(reg_mean);
 reg_size = 1; % Number of pixels in region
 
 % Free memory to store neighbors of the (segmented) region

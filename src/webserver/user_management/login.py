@@ -18,12 +18,10 @@ class LoginForm(object):
     return forms.loginform
   
   @cherrypy.expose
-  @template.output('mainpage.html')
+  @template.output('mainPage.html')
   def login(self, username=None, password=None):
     
     user_db = path.join('..', '..', 'db', 'users.dbxml')
-    # for test purpose
-    #user_db = path.join('..', '..', '..', 'db', 'users.dbxml')
     
     if not path.exists(user_db):
       return 'Error loading the ROI-Engine database.'
@@ -56,8 +54,6 @@ class LoginForm(object):
       
       del container
       return template.render()
-      #return 'file://localhost/Users/hshin/workspace/ROI-Engine/doc/sphinx/' + \
-      #       'build/html/index.html'
     
     else:
       print 'Username not found or password does not match.'

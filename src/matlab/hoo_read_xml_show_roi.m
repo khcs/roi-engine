@@ -1,8 +1,19 @@
-function hoo_read_xml_show_roi
+function hoo_read_xml_show_roi(varargin)
+
+% Load the Java Path
+javaaddpath /home/hshin/workspace/ROI-Engine/src/matlab/javabin/ParseDICOM.jar
 
 
+[xml_file] = parseInputs(varargin{:});
 
-xml_file = input('Enter the full path of the XML file to process: ', 's');
+if isempty(xml_file)
+    % Get the full path of the XML file of the MRIW
+    xml_file = input('Enter the full path of the XML file to process: ', 's');
+    executed_from_outside_of_matlab = 0;
+else
+    executed_from_outside_of_matlab = 1;
+end
+
 if isempty(xml_file)
     xml_file = './rpacs_processing/rpacs_processing_home_hshin_host_hshin_Works_PhD_Dataset_ICR_JamesD_srtf_breast_DICOM_.xml';
 end
@@ -30,3 +41,19 @@ for i=1:length(filenames)
     title(filenames(i,:));
 end
 truesize;
+
+
+if executed_from_outside_of_matlab == 1
+    exit;
+end
+
+
+function [xml_file] = parseInputs(varargin)
+
+iptchecknargin(0, 1, nargin, 'hoo_read_xml_show_roi');
+if nargin == 0
+    xml_file = '';    
+else
+    xml_file = varargin{1};    
+end
+

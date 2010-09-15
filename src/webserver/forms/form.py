@@ -80,3 +80,36 @@ class HTMLForms():
   </body>
   </html>
   """  
+  
+  
+  webappsform = """
+  <html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:py="http://rpacs.icr.ac.uk/">
+  <head>
+    <title>ROI-Engine: Applications</title>
+  </head>
+  <body class="login">
+    <div id="header">
+      <h1>Applications</h1>
+    </div>
+      
+    
+    <form action="login" method="post">
+      <p>Username</p>
+      <input type="text" name="username" value="" size="10" maxlength="40"/>
+      
+      <p>Password</p>
+      <input type="password" name="password" value="" size="10" maxlength="40"/>
+        
+      <p><input type="submit" value="Login"/></p>
+      <p><input type="reset" value="Clear"/></p>
+    </form>
+    
+    <div id="footer">
+      <hr />
+      <p class="legalese">ROI-Engine Copyright: 2010 Hoo Chang Shin</p>
+    </div>
+  </body>
+  </html>
+  """  
+  

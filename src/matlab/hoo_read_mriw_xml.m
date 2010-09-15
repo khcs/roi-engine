@@ -1,14 +1,23 @@
-function hoo_read_mriw_xml
+function hoo_read_mriw_xml(varargin)
 
 % Load the Java Path
 javaaddpath /home/hshin/workspace/ROI-Engine/src/matlab/javabin/ParseDICOM.jar
 
 
-% Get the full path of the XML file of the MRIW
-inputfile = input('Enter full path of the XML file of MRIW: ', 's');
+[inputfile, data_directory] = parseInputs(varargin{:});
 
-% Get the directory containing the DICOM files to work with
-data_directory = input('Enter the directory with the DICOM files: ', 's');
+if isempty(inputfile)
+    % Get the full path of the XML file of the MRIW
+    inputfile = input('Enter full path of the XML file of MRIW: ', 's');
+    executed_from_outside_of_matlab = 0;
+else
+    executed_from_outside_of_matlab = 1;
+end
+
+if isempty(data_directory)
+    % Get the directory containing the DICOM files to work with
+    data_directory = input('Enter the directory with the DICOM files: ', 's');
+end
 
 
 if isempty(inputfile)
@@ -90,7 +99,7 @@ dicom_files_interest = dynamic_filenames;
 parseResultManipulator.writeToXML(data_directory, dicom_files, dicom_metadatas, StudyInstanceUID);
 
 
-reference_image = dicomread([data_directory reference_filename]);
+[reference_image] = dicomread([data_directory reference_filename]);
 %for i=1:length(xs)
 %    reference_image(ys(i), xs(i)) = 2569;
 %end
@@ -132,7 +141,7 @@ end
 truesize
 
 dynamic_images_segt = imcomplement(dynamic_images_segt);
-[im_3d_roi, boundaries_cell] = hoo_get_3d_roi(dynamic_images_segt, dynamic_images);
+[im_3d_roi, boundaries_cell, im_dicom_3d_roi_color] = hoo_get_3d_roi(dynamic_images_segt, dynamic_images);
 
 
 i = 1;
@@ -188,4 +197,30 @@ parseResultManipulator.writeToXML(xml_filename_tmp, xml_filename, ...
                                   roi_creation_info(1,:));
 delete(xml_filename_tmp);
 
+if executed_from_outside_of_matlab == 1
+    copyfile(xml_filename, ['../../data/mriw_temp/download/xml/', strrep(data_directory, '/', '_'), '.xml']);
+    im = zeros(size(im_dicom_3d_roi_color,1), ...
+                   size(im_dicom_3d_roi_color,2), ...
+                   size(im_dicom_3d_roi_color,3), ...
+                   size(im_dicom_3d_roi_color,4));        
+    for i=1:size(im_dicom_3d_roi_color, 4)       
+        im(:,:,1,i) = imadjust(im_dicom_3d_roi_color(:,:,1,i));
+        im(:,:,2,i) = imadjust(im_dicom_3d_roi_color(:,:,2,i));
+        im(:,:,3,i) = imadjust(im_dicom_3d_roi_color(:,:,3,i));        
+        imwrite(im2uint8(im(:,:,:,i)), ['../../data/mriw_temp/download/image/', int2str(i), '.bmp'], 'bmp');
+    end
+    exit;
+end
+
+
+function [inputfile, data_directory] = parseInputs(varargin)
+
+iptchecknargin(0, 2, nargin, 'hoo_read_mriw_xml');
+if nargin == 0
+    inputfile = '';
+    data_directory = '';
+else
+    inputfile = varargin{1};
+    data_directory = varargin{2};
+end
 
