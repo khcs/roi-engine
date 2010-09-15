@@ -48,9 +48,9 @@ for nth_ROI=1:length(xs)
     color_matrix = select_color(nth_ROI);
 
     for i=1:length(ROI_x)
-        im_overlayed_3d_rgb(str2double(ROI_y(i)), str2double(ROI_x(i)), 1, str2double(ROI_z(i))) = color_matrix(1) * 65535;
-        im_overlayed_3d_rgb(str2double(ROI_y(i)), str2double(ROI_x(i)), 2, str2double(ROI_z(i))) = color_matrix(2) * 65535;
-        im_overlayed_3d_rgb(str2double(ROI_y(i)), str2double(ROI_x(i)), 3, str2double(ROI_z(i))) = color_matrix(3) * 65535;
+        im_overlayed_3d_rgb(str2double(ROI_y(i))+1, str2double(ROI_x(i))+1, 1, str2double(ROI_z(i))+1) = color_matrix(1) * 65535;
+        im_overlayed_3d_rgb(str2double(ROI_y(i))+1, str2double(ROI_x(i))+1, 2, str2double(ROI_z(i))+1) = color_matrix(2) * 65535;
+        im_overlayed_3d_rgb(str2double(ROI_y(i))+1, str2double(ROI_x(i))+1, 3, str2double(ROI_z(i))+1) = color_matrix(3) * 65535;
     end
     
 end
