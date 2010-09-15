@@ -198,7 +198,7 @@ class ShowROI(object):
         displayimage_html_string = displayimage_html_string + \
           '<img src="' + \
            '/images/' +\
-           str(i) + '.bmp.jpg"' + '/>'
+           str(i+1) + '.bmp.jpg"' + '/>'
            #images[i] + '.jpg"' + '/>'
       
               
