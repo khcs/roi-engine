@@ -14,7 +14,7 @@ from cherrypy.lib.static import serve_file
 
 import cgi, tempfile
 
-sys.path.append(os.path.abspath('/home/hshin/workspace/ROI-Engine/src'))
+sys.path.append(os.path.abspath('../src'))
 from get_data.dicom_parser import *
 from viewers.show import *
 from segment.automatic_segment import *
@@ -117,7 +117,7 @@ class ShowROI(object):
         get_image(self.dicom_dir, self.study_structure_get, series_name_get)
       
       working_data_directory = \
-                            path.join('/home/hshin/workspace/ROI-Engine/data')
+                            path.join('../data')
       
       T, im_3d_gf_uint16, rois_3d_nx = \
                                     automatic_segment_n_ROIs_preprocess(im_3d)  
