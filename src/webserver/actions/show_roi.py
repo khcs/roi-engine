@@ -14,7 +14,7 @@ from cherrypy.lib.static import serve_file
 
 import cgi, tempfile
 
-sys.path.append(os.path.abspath('../src'))
+sys.path.append(os.path.abspath('../'))
 from get_data.dicom_parser import *
 from viewers.show import *
 from segment.automatic_segment import *
