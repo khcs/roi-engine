@@ -66,7 +66,18 @@ public class MainTesterClass {
     	//}
     	//out.close();
     	
-    	String d_location = ManipulateDICOMparseResult.readFromXML_directory_location("/home/hshin/workspace/ROI-Engine/src/matlab/rpacs_processing/rpacs_processing_home_hshin_host_hshin_Works_PhD_Dataset_ICR_JamesD_srtf_breast_DICOM_.xml", 1);
-    	System.out.println(d_location);
+    	//String d_location = ManipulateDICOMparseResult.readFromXML_directory_location("/home/hshin/workspace/ROI-Engine/src/matlab/rpacs_processing/rpacs_processing_home_hshin_host_hshin_Works_PhD_Dataset_ICR_JamesD_srtf_breast_DICOM_.xml", 1);
+    	//System.out.println(d_location);
+    	
+    	//String[] image_size = ManipulateDICOMparseResult.readFromMriwXML_getImageSize("/home/hshin/workspace/ROI-Engine/src/java/xml-handler-java/test_data/cosine_results.xml");
+    	//for(int i=0; i<image_size.length; i++){
+    	//	System.out.println(image_size[i]);
+    	//}
+    	
+    	String[] roi_coord_x_array = ManipulateDICOMparseResult.readFromMriwXML_ROIcoordinatesForMRIW_x("/home/hshin/workspace/ROI-Engine/src/java/xml-handler-java/test_data/csv_cosine_results.xml"); 
+    	//System.out.println(roi_coord_x_csv);
+    	for(int i=0; i<roi_coord_x_array.length; i++){
+    		System.out.print(roi_coord_x_array[i] + " ");    		
+    	}
     }
 }

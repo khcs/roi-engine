@@ -1,8 +1,8 @@
 function hoo_3d_roi
 
 % Load the Java Path
-javaaddpath /Users/hshin/workspace/XML-ROI-Matlab-Java/bin/ParseDICOM/
-javaaddpath /Users/hshin/workspace/XML-ROI-Matlab-Java/bin/ParseDICOM/ParseDICOM.jar
+%javaaddpath /Users/hshin/workspace/XML-ROI-Matlab-Java/bin/ParseDICOM/
+%javaaddpath /Users/hshin/workspace/XML-ROI-Matlab-Java/bin/ParseDICOM/ParseDICOM.jar
 % Load the Java Path for Linux-VM
 javaaddpath /home/hshin/workspace/ROI-Engine/src/matlab/javabin/ParseDICOM.jar
 

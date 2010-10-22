@@ -67,7 +67,7 @@ conf = {'/images':
          '/home/hshin/workspace/ROI-Engine/data/mriw_temp/download/image'}}
 
 cherrypy.server.max_request_body_size = 0
-cherrypy.server.socket_timeout = 60
+cherrypy.server.socket_timeout = 90
 
 cherrypy.quickstart(Root(), '/', config=conf)
 

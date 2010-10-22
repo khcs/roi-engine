@@ -493,7 +493,7 @@ public class ManipulateDICOMparseResult {
 	
 	// Get the x coordinates of ROI in MRIW-XML
 	// and return the filenames string array to Matlab
-	public static int[] readFromMriwXML_ROIcoordinates_x(String filename)
+	public static int[] readFromMriwXML_ROIcoordinatesForMatlab_x(String filename)
 	throws FileNotFoundException, XMLStreamException{
 		XMLInputFactory factory = XMLInputFactory.newInstance();
 		XMLEventReader reader = factory.createXMLEventReader(filename, new FileInputStream(filename));
@@ -537,7 +537,7 @@ public class ManipulateDICOMparseResult {
 	
 	// Get the y coordinates of ROI in MRIW-XML
 	// and return the filenames string array to Matlab
-	public static int[] readFromMriwXML_ROIcoordinates_y(String filename)
+	public static int[] readFromMriwXML_ROIcoordinatesForMatlab_y(String filename)
 	throws FileNotFoundException, XMLStreamException{
 		XMLInputFactory factory = XMLInputFactory.newInstance();
 		XMLEventReader reader = factory.createXMLEventReader(filename, new FileInputStream(filename));
@@ -612,6 +612,103 @@ public class ManipulateDICOMparseResult {
 		reader.close();
 		return null;
 	}
+	
+	// Read the image size from the MRIW XML file
+	// and return the filenames string array to Matlab
+	public static String[] readFromMriwXML_getImageSize(String filename)
+	throws FileNotFoundException, XMLStreamException{
+		XMLInputFactory factory = XMLInputFactory.newInstance();
+		XMLEventReader reader = factory.createXMLEventReader(filename, new FileInputStream(filename));
+		
+		int j = 0;
+		String image_size[] = new String[2];
+		while(reader.hasNext()){
+			XMLEvent event = reader.nextEvent();
+			if(event.isStartElement()){
+				StartElement start = event.asStartElement();
+				if(start.getName().getLocalPart().equals("roi")){
+					QName xSizeQName = new QName("x-size");
+					QName ySizeQName = new QName("y-size");
+					
+					image_size[0] = start.getAttributeByName(xSizeQName).getValue();
+					image_size[1] = start.getAttributeByName(ySizeQName).getValue();
+										
+					reader.close();					
+					return image_size;
+				}
+			}
+		}
+		reader.close();
+		return null;
+	}
+	
+	// Read the x coords of ROI from MRIW
+	// and return the coords CSV formatted string to Matlab 
+	public static String[] readFromMriwXML_ROIcoordinatesForMRIW_x(String filename)
+	throws FileNotFoundException, XMLStreamException{
+		XMLInputFactory factory = XMLInputFactory.newInstance();
+		XMLEventReader reader = factory.createXMLEventReader(filename, new FileInputStream(filename));
+		
+		int j = 0;
+		String coord_x_csv = null;
+		while(reader.hasNext()){
+			XMLEvent event = reader.nextEvent();
+			if(event.isStartElement()){
+				StartElement start = event.asStartElement();
+				if(start.getName().getLocalPart().equals("roi-x")){		
+					event = reader.nextEvent();
+					if(event.isCharacters()){
+						coord_x_csv = event.toString();
+					}
+							
+					String[] coord_x_array = null;
+					if (coord_x_csv != null || !coord_x_csv.equalsIgnoreCase("")){
+						coord_x_array = coord_x_csv.split(",");
+					}
+					
+					//return coord_x_csv;
+					return coord_x_array;
+				}
+			}
+		}
+		reader.close();
+		return null;
+	}
+	
+	// Read the x coords of ROI from MRIW
+	// and return the coords CSV formatted string to Matlab 
+	public static String[] readFromMriwXML_ROIcoordinatesForMRIW_y(String filename)
+	throws FileNotFoundException, XMLStreamException{
+		XMLInputFactory factory = XMLInputFactory.newInstance();
+		XMLEventReader reader = factory.createXMLEventReader(filename, new FileInputStream(filename));
+		
+		int j = 0;
+		String coord_y_csv = null;
+		while(reader.hasNext()){
+			XMLEvent event = reader.nextEvent();
+			if(event.isStartElement()){
+				StartElement start = event.asStartElement();
+				if(start.getName().getLocalPart().equals("roi-y")){		
+					event = reader.nextEvent();
+					if(event.isCharacters()){
+						coord_y_csv = event.toString();
+					}
+							
+					String[] coord_y_array = null;
+					if (coord_y_csv != null || !coord_y_csv.equalsIgnoreCase("")){
+						coord_y_array = coord_y_csv.split(",");
+					}
+					
+					//return coord_x_csv;
+					return coord_y_array;
+				}
+			}
+		}
+		reader.close();
+		return null;
+	}
+	
+	
 	
 	
 	
@@ -865,7 +962,7 @@ public class ManipulateDICOMparseResult {
     
     
 	// Write the ROI info to the XML file
-	public void writeToXML(String in_xml_filename, String out_xml_filename, double boundaries_array[][][][], int series_n, String application_name, int roi_dimension, String roi_creation_username, String roi_creation_date) 
+	public void writeToXML(String in_xml_filename, String out_xml_filename, double boundaries_array[][][][], int series_n, String application_name, int roi_dimension, String roi_creation_username, String roi_creation_date, String image_size[]) 
 	throws XMLStreamException, IOException{
 		
 		// Name of the original XML file was given changed as .tmp file
@@ -943,6 +1040,32 @@ public class ManipulateDICOMparseResult {
 						
 						xmlw.writeEndElement();
 						
+						
+						// For James and MRIW
+						for(int i=0; i<boundaries_array.length; i++){
+							xmlw.writeStartElement("roi_for_mriw");
+							
+							xmlw.writeAttribute("x-size", image_size[0]);
+							xmlw.writeAttribute("y-size", image_size[1]);
+							
+							String roi_coords = "";
+							// Write the coordinates of the ROI as character element
+							for(int j=0; j<boundaries_array[i][file_element_counter].length; j++){
+								String roi_coord;
+								roi_coord = "(" + Double.toString(boundaries_array[i][file_element_counter][j][1]) + "," + Double.toString(boundaries_array[i][file_element_counter][j][0]) + ")";
+								if(boundaries_array[i][file_element_counter][j][1] != 0 && boundaries_array[i][file_element_counter][j][0] != 0){							
+									//xmlw.writeCharacters(roi_coord);
+									roi_coords += roi_coord;
+								}
+								//xmlw.writeCharacters(" ");
+								roi_coords += " ";
+							}
+							xmlw.writeAttribute("coordinates", roi_coords);
+							
+							xmlw.writeEndElement();
+						}
+						
+						
 						//series_counter++;
 						//continue;
 					}
@@ -995,8 +1118,8 @@ public class ManipulateDICOMparseResult {
 						xmlw.writeAttribute("coordinates", roi_coords);
 						
 						xmlw.writeEndElement();
-					}					
-					
+					}
+										
 					file_element_counter++;
 				}
 				

@@ -5,6 +5,10 @@ if class(nth_ROI) == 'char'
     series_n = str2double(series_n);
 end
     
+% Temporarily changed this -> setting to '1'!!! to prevent "ROI-coordinates-not-writing" error!
+series_n=1;
+%%%
+
 % Load the Java Path
 javaaddpath /home/hshin/workspace/ROI-Engine/src/matlab/javabin/ParseDICOM.jar
 
@@ -60,7 +64,6 @@ scan_result = textscan(fid, '%s %s %s');
 ROI_x = scan_result{1};
 ROI_y = scan_result{2};
 ROI_z = scan_result{3};
-
 
 
 for i=1:length(ROI_x)

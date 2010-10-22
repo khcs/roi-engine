@@ -51,7 +51,7 @@ sop_instance_uids_dynamic_files = char(sop_instance_uids_dynamic_files_java);
 
 % Get the SeriesUIDs of the dynamic files
 series_uids_dynamic_files_java = parseResultManipulator.readFromMriwXML_dynamicFilenames_SeriesUID(inputfile);
-series_uids_dynamic_files = char(sop_instance_uids_dynamic_files_java);
+series_uids_dynamic_files = char(series_uids_dynamic_files_java);
 
 % Get the StudyInstanceUIDs of the dynamic files
 study_instance_uid_java = parseResultManipulator.readFromMriwXML_dynamicFilenames_StudyUID(inputfile);
@@ -80,13 +80,16 @@ roi_creation_info = char(roi_creation_info_java);
 %    disp(roi_creation_info(i,:))
 %end
 
-% Get the x & y coordinates of the ROI
-xs = parseResultManipulator.readFromMriwXML_ROIcoordinates_x(inputfile);
-ys = parseResultManipulator.readFromMriwXML_ROIcoordinates_y(inputfile);
+% Get the x & y coordinates of the ROI for Matlab to use
+xs = parseResultManipulator.readFromMriwXML_ROIcoordinatesForMatlab_x(inputfile);
+ys = parseResultManipulator.readFromMriwXML_ROIcoordinatesForMatlab_y(inputfile);
 %for i=1:length(xs)
 %    disp([int2str(xs(i)) ', ' int2str(ys(i))])
 %end
 
+
+% Get the size of the image
+image_size = parseResultManipulator.readFromMriwXML_getImageSize(inputfile);
 
 
 
@@ -165,7 +168,7 @@ for i=1:num_max_ROI_lables
     end
 end
 
-% Pre-allocate the boundaries array
+% Pre-allocate the boundaries arraySystem.out.println
 boundaries_double_array = zeros(num_max_ROI_lables, num_files, num_max_ROI_pixels, 2);
 
 % Allocate the 4-dimensional boundaries array
@@ -194,7 +197,8 @@ parseResultManipulator.writeToXML(xml_filename_tmp, xml_filename, ...
                                   boundaries_double_array, series_n, ...
                                   application_name, roi_dimension, ...
                                   roi_creation_info(3,:), ...
-                                  roi_creation_info(1,:));
+                                  roi_creation_info(1,:), ...
+                                  image_size);
 delete(xml_filename_tmp);
 
 if executed_from_outside_of_matlab == 1

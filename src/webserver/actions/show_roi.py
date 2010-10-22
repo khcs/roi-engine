@@ -45,6 +45,13 @@ class ShowROI(object):
       return template.render()  
       
     def unzip_file_into_subdir(self, file, dir):
+      
+      try:
+        erase_dicom_related_files_script = 'rm -rf ../../data/show_roi_temp/DICOM/*'
+        os.system(erase_dicom_related_files_script)
+      finally:
+        pass
+      
       zfobj = zipfile.ZipFile(file)
       for name in zfobj.namelist():
         if name.endswith('/'):
@@ -238,13 +245,15 @@ class ShowROI(object):
     def select_roi(self, roi_num_str):
       os.chdir('../matlab')
       
+      print '!!! matlab -r "hoo_roi_engine_liver_write_xml !!!'
+      
       run_matlab_script = 'matlab -r "hoo_roi_engine_liver_write_xml ' +\
                           roi_num_str + ' ' + str(self.series_num) + '"'
       os.system(run_matlab_script)
       
       erase_tmp_files_script_1 = 'rm dicom_files.txt'
       erase_tmp_files_script_2 = 'rm seed_points.txt'
-      erase_tmp_files_script_3 = 'rm ROI_*.txt' 
+      erase_tmp_files_script_3 = 'rm ROI_*.txt'
       
       os.system(erase_tmp_files_script_1)
       os.system(erase_tmp_files_script_2)
