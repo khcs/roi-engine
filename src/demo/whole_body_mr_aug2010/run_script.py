@@ -57,7 +57,7 @@ def do_the_work():
 
   
   # automatic segmentation
-  num_ROIs = 1500
+  num_ROIs = 10
   T, im_3d_gf_uint16, rois_3d_n20 = automatic_segment_n_ROIs_preprocess(im_3d)
   
   for i in range(num_ROIs):

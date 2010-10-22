@@ -51,7 +51,7 @@ sop_instance_uids_dynamic_files = char(sop_instance_uids_dynamic_files_java);
 
 % Get the SeriesUIDs of the dynamic files
 series_uids_dynamic_files_java = parseResultManipulator.readFromMriwXML_dynamicFilenames_SeriesUID(inputfile);
-series_uids_dynamic_files = char(sop_instance_uids_dynamic_files_java);
+series_uids_dynamic_files = char(series_uids_dynamic_files_java);
 
 % Get the StudyInstanceUIDs of the dynamic files
 study_instance_uid_java = parseResultManipulator.readFromMriwXML_dynamicFilenames_StudyUID(inputfile);

@@ -66,7 +66,8 @@ public class MainTesterClass {
     	//}
     	//out.close();
     	
-    	String d_location = ManipulateDICOMparseResult.readFromXML_directory_location("/home/hshin/workspace/ROI-Engine/src/matlab/rpacs_processing/rpacs_processing_home_hshin_host_hshin_Works_PhD_Dataset_ICR_JamesD_srtf_breast_DICOM_.xml", 1);
+    	//String d_location = ManipulateDICOMparseResult.readFromXML_directory_location("/home/hshin/workspace/ROI-Engine/src/matlab/rpacs_processing/rpacs_processing_home_hshin_host_hshin_Works_PhD_Dataset_ICR_JamesD_srtf_breast_DICOM_.xml", 1);
+    	String d_location = ManipulateDICOMparserResult.readFromMriwXML_dynamicFilenames_SeriesUID("/home/hshin/workspace/ROI-Engine/src/matlab/rpacs_processing/rpacs_processing_home_hshin_host_hshin_Works_PhD_Dataset_ICR_JamesD_srtf_breast_DICOM_.xml")
     	System.out.println(d_location);
     }
 }
