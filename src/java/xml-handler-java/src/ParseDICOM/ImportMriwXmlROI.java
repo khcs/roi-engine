@@ -7,8 +7,8 @@ import javax.xml.stream.XMLStreamException;
 public class ImportMriwXmlROI {
 	public static void main(String[] args) throws XMLStreamException, IOException{
 		
-		//String filename = args[0];
-		String filename = "/Users/hshin/Downloads/mriwresultset_RSNA-2.xml";
+		String filename = args[0];
+		//String filename = "/Users/hshin/Downloads/mriwresultset_RSNA.xml";
 		
 		String reference_filename = ManipulateDICOMparseResult.readFromMriwXML_referenceFilename(filename);
 		String[] dynamic_filename = ManipulateDICOMparseResult.readFromMriwXML_dynamicFilenames(filename);
@@ -54,9 +54,8 @@ public class ImportMriwXmlROI {
 		String application_name = roi_creation_info[1];
 		int roi_dimension = 2;
 		
-		System.out.println(xml_filename);
-		System.out.println(xml_filename_tmp);
 		Runtime.getRuntime().exec("mv " + xml_filename + " " + xml_filename_tmp);
+		Runtime.getRuntime().exec("rm " + xml_filename_tmp);
 		
 		int series_n = 1;		
 		

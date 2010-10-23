@@ -1259,7 +1259,7 @@ public class ManipulateDICOMparseResult {
 								roi_coord = "(" + xs[j] + "," + ys[j] + ")"; 
 								//if(boundaries_array[i][file_element_counter][j][1] != 0 && boundaries_array[i][file_element_counter][j][0] != 0){							
 									//xmlw.writeCharacters(roi_coord);
-								//	roi_coords += roi_coord;
+									roi_coords += roi_coord;
 								//}
 								//xmlw.writeCharacters(" ");
 								roi_coords += " ";
@@ -1317,7 +1317,7 @@ public class ManipulateDICOMparseResult {
 							roi_coord = "(" + ys[j] + "," + xs[j] + ")";
 							//if(boundaries_array[i][file_element_counter][j][0] != 0 && boundaries_array[i][file_element_counter][j][1] != 0){							
 								//xmlw.writeCharacters(roi_coord);
-							//	roi_coords += roi_coord;
+								roi_coords += roi_coord;
 							//}
 							//xmlw.writeCharacters(" ");
 							roi_coords += " ";
