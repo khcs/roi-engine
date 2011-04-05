@@ -6,7 +6,7 @@ if class(nth_ROI) == 'char'
 end
     
 % Load the Java Path
-javaaddpath /home/hshin/workspace/ROI-Engine/src/matlab/javabin/ParseDICOM.jar
+javaaddpath ../matlab/javabin/ParseDICOM.jar
 
 % Load my Java class for manipulating the XML files
 parseResultManipulator = ParseDICOM.ManipulateDICOMparseResult;
@@ -129,6 +129,6 @@ movefile(xml_filename, xml_filename_tmp);
 parseResultManipulator.writeToXML(xml_filename_tmp, xml_filename, boundaries_double_array, series_n, application_name, roi_dimension);
 delete(xml_filename_tmp);
 
-copyfile(xml_filename, ['../../data/mriw_temp/download/xml/', strrep(working_directory, '/', '_'), '.xml']);
+copyfile(xml_filename, ['../../data/xml/', strrep(working_directory, '/', '_'), '.xml']);
 
 exit;

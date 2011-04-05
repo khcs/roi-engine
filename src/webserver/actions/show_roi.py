@@ -210,7 +210,7 @@ class ShowROI(object):
       
       for i in range(num_ROIs):
         displayimage_html_string += str(i+1) + 'th ROI: ' +\
-                                    '<image src="/image/color-' + \
+                                    '<image src="/image/colors/color-' + \
                                     str(i+1) + '.jpg" alt="' + \
                                     str(i+1) + 'th ROI"/> ' + \
                                     'center of mass: (' + str(com_x[i]) + \
@@ -237,6 +237,7 @@ class ShowROI(object):
     @cherrypy.expose
     def select_roi(self, roi_num_str):
       os.chdir('../matlab')
+      os.system('rm ../data/xml/*')
       
       run_matlab_script = 'matlab -nosplash -nodesktop -r "hoo_roi_engine_liver_write_xml ' +\
                           roi_num_str + ' ' + str(self.series_num) + '"'

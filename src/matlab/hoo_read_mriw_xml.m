@@ -1,7 +1,7 @@
 function hoo_read_mriw_xml(varargin)
 
 % Load the Java Path
-javaaddpath /home/hshin/workspace/ROI-Engine/src/matlab/javabin/ParseDICOM.jar
+javaaddpath ../matlab/javabin/ParseDICOM.jar
 
 
 [inputfile, data_directory] = parseInputs(varargin{:});

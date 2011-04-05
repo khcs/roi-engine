@@ -1,10 +1,6 @@
 function hoo_3d_roi
 
-% Load the Java Path
-javaaddpath /Users/hshin/workspace/XML-ROI-Matlab-Java/bin/ParseDICOM/
-javaaddpath /Users/hshin/workspace/XML-ROI-Matlab-Java/bin/ParseDICOM/ParseDICOM.jar
-% Load the Java Path for Linux-VM
-javaaddpath /home/hshin/workspace/ROI-Engine/src/matlab/javabin/ParseDICOM.jar
+javaaddpath ../matlab/javabin/ParseDICOM.jar
 
 % Get the directory containing the DICOM files to work with
 working_directory = input('Enter the directory with the DICOM files: ', 's');
