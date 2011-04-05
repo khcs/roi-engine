@@ -1,7 +1,7 @@
 function hoo_roi_engine_liver
 
 % Load the Java Path
-javaaddpath /home/hshin/workspace/ROI-Engine/src/matlab/javabin/ParseDICOM.jar
+javaaddpath ../matlab/javabin/ParseDICOM.jar
 
 fid = fopen('./dicom_files.txt');
 scan_result = textscan(fid, '%s %s');
@@ -57,7 +57,7 @@ end
 
 
 for i=1:size(dicom_files, 1)
-    imwrite(im2uint8(im_overlayed_3d_rgb(:,:,:,i)), ['../../data/mriw_temp/download/image/', int2str(i), '.bmp'], 'bmp');
+    imwrite(im2uint8(im_overlayed_3d_rgb(:,:,:,i)), ['../../data/image/', int2str(i), '.bmp'], 'bmp');
 end
 
 

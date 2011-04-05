@@ -171,23 +171,23 @@ class ShowROI(object):
       
       os.chdir('../matlab')
       remove_previous_images_script = 'rm ' + \
-                                      '../../data/mriw_temp/download/image/*'
+                                      '../../data/image/*'
       os.system(remove_previous_images_script)
       
       run_matlab_script = 'matlab -nosplash -nodesktop -r ' + '"' + 'hoo_roi_engine_liver' + '"'
       os.system(run_matlab_script)
       
       os.system(run_matlab_script)
-      images = os.listdir('../../data/mriw_temp/download/image')
+      images = os.listdir('../../data/image')
       for i in range(len(images)):
         convert_to_jpg_script = 'convert ' + \
-                                '../../data/mriw_temp/download/image/' + \
+                                '../../data/image/' + \
                                 images[i] + \
-                                ' ../../data/mriw_temp/download/image/' + \
+                                ' ../../data/image/' + \
                                 images[i] +\
                                 '.jpg'
         os.system(convert_to_jpg_script)
-        remove_bmp_script = 'rm ' + '../../data/mriw_temp/download/image/' + \
+        remove_bmp_script = 'rm ' + '../../data/image/' + \
          images[i]
         os.system(remove_bmp_script)
                                     
@@ -197,7 +197,7 @@ class ShowROI(object):
       for i in range(len(images)):
         displayimage_html_string = displayimage_html_string + \
           '<img src="' + \
-           '/images/' +\
+           '/image/' +\
            str(i+1) + '.bmp.jpg"' + '/>'
            #images[i] + '.jpg"' + '/>'
       
@@ -205,12 +205,12 @@ class ShowROI(object):
       displayimage_html_string += '<br />'
       
       copy_colors_script = 'cp ../matlab/colorset/* ' + \
-                           '../../data/mriw_temp/download/image'
+                           '../../data/image'
       os.system(copy_colors_script)
       
       for i in range(num_ROIs):
         displayimage_html_string += str(i+1) + 'th ROI: ' +\
-                                    '<image src="/images/color-' + \
+                                    '<image src="/image/color-' + \
                                     str(i+1) + '.jpg" alt="' + \
                                     str(i+1) + 'th ROI"/> ' + \
                                     'center of mass: (' + str(com_x[i]) + \
@@ -253,10 +253,10 @@ class ShowROI(object):
       os.chdir('../webserver')      
       
       
-      post_xml_file_list = os.listdir('../../data/mriw_temp/download/xml')
+      post_xml_file_list = os.listdir('../../data/xml')
       post_xml_file = post_xml_file_list[0]
       absPath = \
-              path.abspath('../../data/mriw_temp/download/xml/' + post_xml_file)
+              path.abspath('../../data/xml/' + post_xml_file)
               
       displayimage_html_string = '<html><body>'
       displayimage_html_string += '<br />' + \
@@ -273,8 +273,7 @@ class ShowROI(object):
       
       cherrypy.response.timeout = 3600
 
-      dicom_file_zip = path.join('..', '..', 'data', 'show_roi_temp',\
-                               dicomFileZip.filename)
+      dicom_file_zip = path.join('..', '..', 'data', dicomFileZip.filename)
       dicom_file_zip_w = open(dicom_file_zip, 'wb')
       while True:
         data = dicomFileZip.file.read(1024 * 8)
@@ -282,7 +281,7 @@ class ShowROI(object):
         dicom_file_zip_w.write(data)
       dicom_file_zip_w.close()
       
-      unzipped_dir = path.join('..', '..', 'data', 'show_roi_temp', 'DICOM')
+      unzipped_dir = path.join('..', '..', 'data', 'DICOM')
       self.unzip_file_into_subdir(dicom_file_zip, unzipped_dir)
       
       unzipped_dir_list = os.listdir(unzipped_dir)

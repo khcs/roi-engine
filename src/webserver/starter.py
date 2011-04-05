@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #
 ##
 ## Web Server
@@ -17,7 +18,6 @@ from user_management.register import RegisterForm
 from user_management.login import LoginForm
 
 from webapps.runapps import WebappsForm
-from actions.mriw import ReadMriwXML, Download
 from actions.show_roi import ShowROI
 from actions.show_roi import Download as show_roi_download
 
@@ -36,8 +36,6 @@ class Root(object):
   
   webappsForm = WebappsForm()
   
-  readMriwXML = ReadMriwXML()
-  readMriwXML.download = Download()
   showROI = ShowROI()
   showROI.download = show_roi_download()
   
@@ -52,15 +50,21 @@ class Root(object):
 #os.system('/Users/hshin/SoftwareDev/apache-tomcat-7.0.11/bin/startup.sh')  
 # IGNORE THE DOCUMENTATION SERVER FOR NOW  
 
+
+current_path = os.getcwd()
+upper_upper_path = os.path.dirname(os.path.dirname(current_path))
+data_path = os.path.join(upper_upper_path, 'data', 'image')
+print data_path
+
 local_ip_address = socket.gethostbyname(socket.gethostname())
 cherrypy.config.update({'server.socket_host': local_ip_address,
                         'server.socket_port': 9090,
                        })
 
-conf = {'/images':
+conf = {'/image':
         {'tools.staticdir.on':True,
-         'tools.staticdir.dir': 
-         '/home/hshin/workspace/ROI-Engine/data'}}
+         'tools.staticdir.dir':
+         data_path}}
 
 cherrypy.server.max_request_body_size = 0
 cherrypy.server.socket_timeout = 60
