@@ -174,7 +174,7 @@ class ShowROI(object):
                                       '../../data/mriw_temp/download/image/*'
       os.system(remove_previous_images_script)
       
-      run_matlab_script = 'matlab -r ' + '"' + 'hoo_roi_engine_liver' + '"'
+      run_matlab_script = 'matlab -nosplash -nodesktop -r ' + '"' + 'hoo_roi_engine_liver' + '"'
       os.system(run_matlab_script)
       
       os.system(run_matlab_script)
@@ -238,7 +238,7 @@ class ShowROI(object):
     def select_roi(self, roi_num_str):
       os.chdir('../matlab')
       
-      run_matlab_script = 'matlab -r "hoo_roi_engine_liver_write_xml ' +\
+      run_matlab_script = 'matlab -nosplash -nodesktop -r "hoo_roi_engine_liver_write_xml ' +\
                           roi_num_str + ' ' + str(self.series_num) + '"'
       os.system(run_matlab_script)
       

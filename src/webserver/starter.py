@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #
 ##
 ## Web Server
@@ -32,10 +31,6 @@ import os
 
 class Root(object):
     
-  os.system('/home/hshin/MyApplications/apache-tomcat-6.0.29/bin/startup.sh')
-    
-    
-
   registerForm = RegisterForm()
   loginForm = LoginForm()
   
@@ -48,23 +43,24 @@ class Root(object):
   
     
   @cherrypy.expose
-  @template.output('index.html')
+  #@template.output('index.html') IGNORE THE LOGIN FOR NOW
+  @template.output('mainPage.html')
   def index(self):
     return template.render()
-  
-  
+
+
+#os.system('/Users/hshin/SoftwareDev/apache-tomcat-7.0.11/bin/startup.sh')  
+# IGNORE THE DOCUMENTATION SERVER FOR NOW  
+
 local_ip_address = socket.gethostbyname(socket.gethostname())
-cherrypy.config.update({#'server.socket_host': local_ip_address,
-                        #'server.socket_host': '127.0.0.1',
-                        #'server.socket_host': '172.16.15.156', # ICR
-                        'server.socket_host': '192.168.56.101', # AppServer-VM
+cherrypy.config.update({'server.socket_host': local_ip_address,
                         'server.socket_port': 9090,
                        })
 
 conf = {'/images':
         {'tools.staticdir.on':True,
          'tools.staticdir.dir': 
-         '/home/hshin/workspace/ROI-Engine/data/mriw_temp/download/image'}}
+         '/home/hshin/workspace/ROI-Engine/data'}}
 
 cherrypy.server.max_request_body_size = 0
 cherrypy.server.socket_timeout = 60
