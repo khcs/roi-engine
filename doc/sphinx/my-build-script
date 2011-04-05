@@ -1,3 +1,4 @@
 make html
-rm -rf /Users/hshin/MyApplications/apache-tomcat/webapps/roi-engine-doc/*
-cp -r ./build/html/* /home/hshin/MyApplications/apache-tomcat-6.0.29/webapps/roi-engine-doc/
+mkdir -p $TOMCAT/webapps/roi-engine-doc
+rm -rf $TOMCAT/webapps/roi-engine-doc/*
+cp -r ./build/html/* $TOMCAT/webapps/roi-engine-doc/
