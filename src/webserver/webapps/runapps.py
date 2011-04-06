@@ -6,7 +6,7 @@ Created on 2 Sep 2010
 
 import cherrypy
 from forms.form import HTMLForms
-from actions.mriw import ReadMriwXML
+#from actions.mriw import ReadMriwXML
 
 from os import path
 

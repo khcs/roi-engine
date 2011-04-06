@@ -14,8 +14,8 @@ from genshi.template import TemplateLoader
 from genshi.filters import HTMLFormFiller
 
 from lib import template
-from user_management.register import RegisterForm
-from user_management.login import LoginForm
+#from user_management.register import RegisterForm
+#from user_management.login import LoginForm
 
 from webapps.runapps import WebappsForm
 from actions.show_roi import ShowROI
@@ -31,8 +31,8 @@ import os
 
 class Root(object):
     
-  registerForm = RegisterForm()
-  loginForm = LoginForm()
+  #registerForm = RegisterForm()
+  #loginForm = LoginForm()
   
   webappsForm = WebappsForm()
   
